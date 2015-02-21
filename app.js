@@ -99,7 +99,7 @@ var Ping = require('./lib/ping'),
 		{
             name: 'Google',
 			url: 'http://www.google.se',
-			proxy: 'http://www.google.se:80',
+			proxy: '',
 			headers: {
 				'host' : 'www.google.se',
 				'Pragma' : 'no-cache',
@@ -108,16 +108,16 @@ var Ping = require('./lib/ping'),
 				},
             timeout: 30
         },
-        // {
-            // name: 'PAID via Rev. Proxy',
-			// url: 'http://paid.hvwan.net',
-            // proxy: 'http://paid.hvwan.net:80',
-			// headers: {
-				// 'host' : 'paid.hvwan.net',
-				// 'Pragma' : 'no-cache',
-				// },
-			// timeout: 30
-        // }
+        {
+            name: '1MB @ Sunet',
+			url: 'http://ftp.sunet.se/pub/Linux/distributions/Debian/debian-cd/current-live/i386/iso-hybrid/debian-live-7.8.0-i386-rescue.iso.log',
+            proxy: '',
+			headers: {
+				'host' : 'ftp.sunet.se',
+				'Pragma' : 'no-cache',
+				},
+			timeout: 30
+        }
     ],
     http = require('http'),
     server,
