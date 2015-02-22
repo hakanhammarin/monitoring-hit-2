@@ -1,7 +1,30 @@
 
 
 var timers = '10';
+
+
+// *** Files
+
+
+var FFile = require('./lib/file'),
+
+    files = [
+
+      { name : 'test.txt',
+        path : '/Users/hakan/nodeapps/monitoring-hit-2/test.txt',
+        timeout : '30'
+      },
+      { name : 'resolv.conf',
+        path : '/etc/resolv.conf',
+        timeout : '30'
+      }
+    ],
+    monitors = [];
+
+// Websites
+
 var Ping = require('./lib/ping'),
+
     websites = [
         // {
             // name: 'CID',
@@ -123,6 +146,11 @@ var Ping = require('./lib/ping'),
     server,
     port = process.env.PORT || 3008,
 	monitors = [];
+
+
+
+
+// *** Websites
 websites.forEach(function (website) {
     var monitor = new Ping ({
 		name: website.name,
@@ -133,6 +161,21 @@ websites.forEach(function (website) {
     });
     monitors.push(monitor);
 });
+
+
+
+    // *** Files
+
+files.forEach(function (ffile) {
+      var monitor = new FFile ({
+      name: ffile.name,
+      path: ffile.path,
+    	timeout: timers
+        });
+        monitors.push(monitor);
+    });
+
+
 server = http.createServer(function (req, res) {
     var data = "Monitoring the following websites: \n \n" + websites.join("\n");
     res.end(data);
