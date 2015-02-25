@@ -1,5 +1,5 @@
 var sys = require('sys')
-var exec = require('child_process').exec;
+//var exec = require('child_process').exec;
 
 function find(key, array) {
   // The variable results needs var in this case (without 'var' a global variable is created)
@@ -9,36 +9,52 @@ function find(key, array) {
       results.push(array[i]);
     }
   }
-  console.log(results);
+ // console.log(results);
   return results;
 
 }
 
+module.exports = {
 
-function puts(error, stdout, stderr) {
+fbssid: function puts(error, stdout, stderr) {
   sys.puts(stdout);
     //console.log(stdout);
     //var ret = JSON.parse(stdout);
     //console.log(ret);
     var res1 = stdout.split("\n");
 //    var res2 = stdout.match("/bssid.*/gi");
-    console.log(res1);
+//    console.log(res1);
 //  var search1 = find("B",stdout);
 var search1 = find("          BSSID",res1);
 
 var search2 = search1.toString().trim().split(": ");
-var search3 = search1.toString().trim();
-var search4 = search1.toString().trim().replace(/[:][ ]/g,'=');
+//var search3 = search1.toString().trim();
+//var search4 = search1.toString().trim().replace(/[:][ ]/g,'=');
 //"{key1:value1}{key2:value2}".replace(/^{|}$/g, '').split('}{')
   //var res = str.toString();
-  console.log(search1);
+  //console.log(search1);
 
-  console.log(search2);
-  console.log(search3);
-  console.log(search4);
-  var bssid = search2.pop();
+  //console.log(search2);
+  //console.log(search3);
+  //console.log(search4);
+  bssid = search2.pop();
   console.log(bssid);
+
+var signal1 = find("     agrCtlRSSI",res1);
+
+var signal2 = signal1.toString().trim().split(": ");
+signal = signal2.pop();
+  console.log(signal);
+
   // var ret = JSON.parse(stdout);
+  return(bssid,signal);
   }
 
+};
+/*
+setInterval(function() { 
+  
 exec("/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I", puts);
+  
+  }, 10000);
+  */
