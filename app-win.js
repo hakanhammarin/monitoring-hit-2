@@ -1,8 +1,38 @@
-var sys = require('sys')
+// var sys = require('sys') // needs in app-bssid-win
 var exec = require('child_process').exec;
 var timers = '10';
-var bssid='';
-var signal='';
+bssid=''; // global values
+signal=''; // global values
+hostname=''; // global values
+username=''; // global values
+var fbssid = require('./app-bssid-win');
+
+hostname = exec("hostname", fbssid.hostname) ;
+tasklist = exec('tasklist /v /fi "imagename eq explorer.exe" /fo csv', fbssid.tasklist);
+wifi = exec("netsh wlan show interfaces", fbssid.fbssid) ;
+
+setInterval(function() { 
+  
+wifi = exec("netsh wlan show interfaces", fbssid.fbssid) ;
+
+  }, 10000);
+
+/* setInterval(function() { 
+  
+  console.log('BSSID='+bssid);
+  console.log('Signal='+signal);
+  console.log('Hostname='+hostname);
+  console.log('Username='+username);
+  }, 1000);
+ */
+
+ setInterval(function() { 
+hostname = exec("hostname", fbssid.hostname) ;
+//tasklist = exec('tasklist /v /fi "sessionname eq Console" /fo csv', fbssid.tasklist);
+tasklist = exec('tasklist /v /fi "imagename eq explorer.exe" /fo csv', fbssid.tasklist);
+
+  }, 60000);
+
 
 function find(key, array) {
   // The variable results needs var in this case (without 'var' a global variable is created)
@@ -157,9 +187,10 @@ files.forEach(function (ffile) {
 
   
 
-server = http.createServer(function (req, res) {
+/* server = http.createServer(function (req, res) {
     var data = "Monitoring the following websites: \n \n" + websites.join("\n");
     res.end(data);
 });
 server.listen(port);
 console.log('Listening to port %s', port);
+ */
