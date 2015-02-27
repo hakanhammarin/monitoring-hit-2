@@ -82,7 +82,7 @@ var Ping = require('./lib/ping'),
 				'Cookie' : '',
 
 				},
-            timeout: 60
+            timeout: 15
         },
         {
             name: '1MBAtSunet',
@@ -102,7 +102,7 @@ var Ping = require('./lib/ping'),
 				'host' : 'mgmtcacti.intern.hoglandet.se',
 				'Pragma' : 'no-cache',
 				},
-			timeout: 60
+			timeout: 15
         }
     ],
     http = require('http'),
@@ -120,7 +120,7 @@ websites.forEach(function (website) {
         website: website.url,
 		proxy: website.proxy,
 		headers: website.headers,
-        timeout: timers,
+        timeout: website.timeout,
 		
     });
     monitors.push(monitor);
@@ -134,7 +134,7 @@ files.forEach(function (ffile) {
       var monitor = new FFile ({
       name: ffile.name,
       path: ffile.path,
-    	timeout: timers,
+    	timeout: ffile.timeout,
 		
         });
         monitors.push(monitor);
